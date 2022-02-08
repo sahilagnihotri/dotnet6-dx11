@@ -14,19 +14,19 @@
         </Grid.ColumnDefinitions>
         
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" MaxHeight="500"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <Grid Grid.Column="0" Margin="0.1,0.1,0.1,0.1" Panel.ZIndex="3">
-            <StackPanel Name="guiElements" Grid.Row="0" Background="Beige">
-                <Button Height="50" Width="100" Content="Render Once" Click="Button_Click"/>
-                <Button Height="50" Width="100" Content="Enable ContinousRender" Click="enableContinousRender"/>
-                <Button Height="50" Width="100" Content="Disable ContinousRender" Click="disableContinousRender"/>
-                <Button Height="50" Width="100" Content="toggle Rand() ClearColors" Click="toggleRandClearColor"/>
+            <StackPanel Name="guiElements" Grid.Row="0" Background="Beige" Margin="0,0,-46,0">
+                <Button Height="50" Width="150" Content="Render Once" Click="Button_Click"/>
+                <Button Height="50" Width="150" Content="Enable ContinousRender" Click="enableContinousRender"/>
+                <Button Height="50" Width="150" Content="Disable ContinousRender" Click="disableContinousRender"/>
+                <Button Height="50" Width="150" Content="toggle Rand() ClearColors" Click="toggleRandClearColor"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1" Margin="0.1,0.1,0.1,0.1">
-            <Canvas Name="myVRCanvas" Background="Transparent"></Canvas>
+            <Canvas Name="myVRCanvas" Background="Red" Margin="53,0,0,0"></Canvas>
         </Grid>
     </Grid>
 </Window>
