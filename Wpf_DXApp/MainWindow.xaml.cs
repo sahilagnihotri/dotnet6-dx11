@@ -1,4 +1,4 @@
-﻿//#define testChildWindow
+﻿#define testChildWindow
 
 using System;
 using System.Windows;
@@ -63,16 +63,16 @@ namespace Wpf_DXApp
             handle = childWindowInterOp.Handle;
 #else
             handle = parentWindowInterOp.Handle;
+#endif
 
-            HwndSource? panelHwnd = PresentationSource.FromVisual(myVRCanvas as Canvas) as HwndSource;
-            if(panelHwnd != null)
+            HwndSource? canvasHwnd = PresentationSource.FromVisual(myVRCanvas as Canvas) as HwndSource;
+            if (canvasHwnd != null)
             {
-                IntPtr hWnd = panelHwnd.Handle;
-                bool same = panelHwnd.Handle == handle;
+                IntPtr hWnd = canvasHwnd.Handle;
+                bool same = canvasHwnd.Handle == parentWindowInterOp.Handle;
                 Debug.Assert(same);
             }
 
-#endif
             int surfWidth = (int)(myVRCanvas.ActualWidth < 0 ? 0 : Math.Ceiling(myVRCanvas.ActualWidth * dpiScale));
             int surfHeight = (int)(myVRCanvas.ActualHeight < 0 ? 0 : Math.Ceiling(myVRCanvas.ActualHeight * dpiScale));
 
