@@ -1,0 +1,7 @@
+.vs/
+WinForms_DXApp/bin/
+WinForms_DXApp/obj/
+Wpf_DXApp/bin/
+Wpf_DXApp/obj/
+Wpf_Frame/obj/
+build/
