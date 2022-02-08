@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\ClassLibrary2.vcxproj" />
+    <ProjectReference Include="..\DXClassLibrary\DXClassLibrary.vcxproj" />
   </ItemGroup>
 
   <ItemGroup>

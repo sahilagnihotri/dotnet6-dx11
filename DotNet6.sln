@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf_DXApp", "Wpf_DXApp\Wpf_DXApp.csproj", "{E73F35CF-0274-4708-BBE4-A0C6242C29D0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXClassLibrary", "ClassLibrary2\ClassLibrary2.vcxproj", "{C5EE5811-0577-47C0-A635-3BADBEC86D14}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXClassLibrary", "DXClassLibrary\DXClassLibrary.vcxproj", "{C5EE5811-0577-47C0-A635-3BADBEC86D14}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf_Frame", "Wpf_Frame\Wpf_Frame.csproj", "{8BD55ACD-667F-45CE-8966-6AB1B1154F88}"
 EndProject

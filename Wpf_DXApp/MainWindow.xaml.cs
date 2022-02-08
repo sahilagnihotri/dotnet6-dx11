@@ -1,4 +1,4 @@
-﻿#define testChildWindow
+﻿//#define testChildWindow
 
 using System;
 using System.Windows;
