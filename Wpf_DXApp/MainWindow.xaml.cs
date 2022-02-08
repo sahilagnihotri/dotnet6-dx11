@@ -31,8 +31,14 @@ namespace Wpf_DXApp
         public const int WS_VISIBLE = 0x10000000;
         public const int WS_DISABLED = 0x8000000;
         public const int SS_NOTIFY = 0x00000100;
+
         [DllImport("User32.dll", SetLastError = true)]
         public static extern IntPtr CreateWindowEx(int dwExStyle, string lpClassName, string lpWindowName, int dwStyle, int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
+        [DllImport("User32.dll", SetLastError = true)]
+        public static extern int GetDpiForSystem();
+        public const int DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = 0x00000022;
+        [DllImport("User32.dll", SetLastError = true)]
+        public static extern bool SetProcessDpiAwarenessContext(int value);
         [DllImport("User32.dll", SetLastError = true)]
         public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int cx, int cy, bool repaint);
         public static int HIWORD(int n)
@@ -68,7 +74,7 @@ namespace Wpf_DXApp
         bool continousRender = false;
         bool randClearColor = false;
         int frameSpeed = 1;
-
+        int canvasX = 0;
         private readonly Stopwatch _stopwatch = new Stopwatch();
         private double _frameCounter;
 
@@ -98,14 +104,21 @@ namespace Wpf_DXApp
             var nWidth = ((Panel)Application.Current.MainWindow.Content).ActualWidth;
             var nHeight = ((Panel)Application.Current.MainWindow.Content).ActualHeight;
 
+            dpiScale = GetDpiForSystem() / 96;
+
+            int workW = (int)System.Windows.SystemParameters.WorkArea.Width;
+            int workH = (int)SystemParameters.WorkArea.Height;
+
+            int primaryW = (int) System.Windows.SystemParameters.PrimaryScreenWidth;
+            int primaryH = (int)System.Windows.SystemParameters.PrimaryScreenHeight;
+
             int surfWidth = (int)(myVRCanvas.ActualWidth < 0 ? 0 : Math.Ceiling(myVRCanvas.ActualWidth * dpiScale));
             int surfHeight = (int)(myVRCanvas.ActualHeight < 0 ? 0 : Math.Ceiling(myVRCanvas.ActualHeight * dpiScale));
-            int x = (int)(guiElements.ActualWidth < 0 ? 0 : Math.Ceiling(guiElements.ActualWidth * dpiScale));
+            canvasX = (int)(guiElements.ActualWidth < 0 ? 0 : Math.Ceiling(guiElements.ActualWidth * dpiScale));
 
-            //            hWndContainer = CreateWindowEx(0, "Static", "", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_NOTIFY, 120, 10, surfWidth , surfHeight, hWndSource.Handle, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
+            hWndContainer = CreateWindowEx(0, "Static", "", WS_VISIBLE | WS_CHILD | SS_NOTIFY, canvasX, 0, surfWidth , surfHeight, hWndSource.Handle, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 
-            hWndContainer = CreateWindowEx(0, "Static", "", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_NOTIFY, 120, 10, (int)nWidth - 120 - 10, (int)nHeight - 10 * 2, hWndSource.Handle, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
-
+//            hWndContainer = CreateWindowEx(0, "Static", "", WS_VISIBLE | WS_CHILD | WS_BORDER | SS_NOTIFY, 120, 10, (int)nWidth - 120 - 10, (int)nHeight - 10 * 2, hWndSource.Handle, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 
             if (hWndContainer != IntPtr.Zero)
             {
@@ -116,11 +129,14 @@ namespace Wpf_DXApp
             hWndSource.AddHook(WndProc);
         }
 
-        private int nX = 250, nY = 0;
+        //        private int nX = 256, nY = 0;
         private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             if (msg == WM_SIZE)
             {
+                int nX = (int)(guiElements.ActualWidth < 0 ? 0 : Math.Ceiling(guiElements.ActualWidth * dpiScale));
+                int nY = 0;
+
                 if (hWndContainer != IntPtr.Zero)
                 {
                      MoveWindow(hWndContainer, nX, nY, LOWORD((int)lParam) - nX, HIWORD((int)lParam), true);
